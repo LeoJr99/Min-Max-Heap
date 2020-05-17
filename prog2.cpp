@@ -26,8 +26,8 @@ int main(int argc, char *argv[]) {
 
 
     ifstream textFile; 
-    //textFile.open("/autograder/submission/PA2_dataset.txt"); 
-    textFile.open("PA2_dataset.txt");
+    textFile.open("/autograder/submission/PA2_dataset.txt"); 
+    //textFile.open("PA2_dataset.txt");
     char charNum[100];
     int count; 
 
