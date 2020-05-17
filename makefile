@@ -7,5 +7,5 @@ CXXFLAGS = -std=c++11 -Wall
 
 all: prog2.out
 
-prog2: minMaxHeap.o prog2.o
+prog2.out: minMaxHeap.o prog2.o
 	${CXX} ${CXXFLAGS} $^ -o $@
