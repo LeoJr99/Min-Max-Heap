@@ -36,7 +36,7 @@ int main(int argc, char *argv[]) {
         exit(1); 
     }
 
-    while (!textFile.eof() && !textFile.fail() && count <= 10000) {
+    while (!textFile.eof() && !textFile.fail()) {
         count++; 
         textFile >> charNum; 
         int charToNum = stoi(charNum); 

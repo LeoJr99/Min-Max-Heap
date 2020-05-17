@@ -72,7 +72,7 @@ void minMaxHeap::deleteMin() {
     
     std::cout << "deleted " << heap[0] << std::endl; 
 
-    heap[0] = heap[heap.size() - 1]; 
+    heap[0] = heap.at(heap.size() - 1); 
     heap.pop_back(); 
     if(!heap.empty()) {
         percolateDownMin(0); 
@@ -138,7 +138,7 @@ int minMaxHeap::getMinGrandChild(int i) const {
 
     int min = leftmostGrandChild; 
 
-    for(int j = leftmostGrandChild + 1; j <= rightmostGrandChild && j < heap.size(); j++) {
+    for(int j = leftmostGrandChild; j <= rightmostGrandChild && j < heap.size(); j++) {
         if(heap[j] < heap[min]) {
             min = j; 
         }
@@ -152,7 +152,7 @@ int minMaxHeap::getMaxGrandChild(int i) const {
 
     int max = leftmostGrandChild; 
 
-    for(int j = leftmostGrandChild + 1; j <= rightmostGrandChild && j < heap.size(); j++) {
+    for(int j = leftmostGrandChild; j <= rightmostGrandChild && j < heap.size(); j++) {
         if(heap[j] > heap[max]) {
             max = j; 
         }
@@ -176,7 +176,7 @@ void minMaxHeap::percolateUpMin(int i) {
         return;
 
     int parentOfi = getParent(i);
-       
+
     if (heap[i] < heap[parentOfi]) {
         while (i != 0) {
             if (heap[i] < heap[getGrandParent(i)]) {
@@ -201,8 +201,39 @@ void minMaxHeap::percolateUpMin(int i) {
 }
 
 void minMaxHeap::percolateDownMin(int i) {
-    if (getChildLeft(i) < heap.size() || getChildRight(i) < heap.size()) {
+
+    int minIndex; 
+    if (getChildLeft(i) < heap.size()) {
+        if(heap[getChildLeft(i)] < heap[getChildRight(i)]) {
+            minIndex = getChildLeft(i); 
+        }
+        else {
+            minIndex = getChildRight(i); 
+        }
+        int grandChildMin = getMinGrandChild(i); 
+        if(heap[grandChildMin] < heap[minIndex]) {
+            minIndex = grandChildMin; 
+        }
+        if (minIndex == grandChildMin) {
+            if (heap[minIndex] < heap[i]) {
+                std::swap(heap[minIndex], heap[i]); 
+                if (heap[minIndex] > heap[getParent(minIndex)]) {
+                    std::swap(heap[minIndex], heap[getParent(minIndex)]);
+                }
+                percolateDownMin(minIndex);
+            }
+            else if (minIndex == getChildLeft(i) || minIndex == getChildRight(i)) {
+                if (heap[minIndex] < heap[i]) {
+                    std::swap(heap[i], heap[minIndex]);
+                }
+            }
+        }
+    }
+
+    /*
+    if (getChildLeft(i) < heap.size() ) {
         int minIndex = i; 
+
         if (heap.at(getChildLeft(i)) < heap.at(getChildRight(i))) {
             minIndex = getChildLeft(i); 
         }
@@ -230,6 +261,7 @@ void minMaxHeap::percolateDownMin(int i) {
             }
         }
     }
+    */
 } 
 
 void minMaxHeap::percolateUpMax(int i) {
