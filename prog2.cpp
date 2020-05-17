@@ -25,10 +25,9 @@ int main(int argc, char *argv[]) {
     */
 
 
-
     ifstream textFile; 
-    textFile.open("/autograder/submission/PA2_dataset.txt"); 
-    //textFile.open("PA2_dataset.txt");
+    //textFile.open("/autograder/submission/PA2_dataset.txt"); 
+    textFile.open("PA2_dataset.txt");
     char charNum[100];
     int count; 
 
@@ -37,7 +36,7 @@ int main(int argc, char *argv[]) {
         exit(1); 
     }
 
-    while (!textFile.eof() && !textFile.fail() && count < 9999) {
+    while (!textFile.eof() && !textFile.fail() && count <= 10000) {
         count++; 
         textFile >> charNum; 
         int charToNum = stoi(charNum); 

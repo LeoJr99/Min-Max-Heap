@@ -5,6 +5,11 @@
 #include <cmath>
 #include <utility>
 
+
+minMaxHeap::minMaxHeap() {}
+
+minMaxHeap::~minMaxHeap() {}
+
 void minMaxHeap::printHeap() const {
 
     std::cout << "heap = "; 
@@ -23,19 +28,19 @@ void minMaxHeap::getMax() const {
     if (heap.empty()) {
         std::cerr << "Empty Heap" << std::endl; 
     }
-    else if (heap.size() - 1 == 1) {
-        std::cout << "max = " << heap[0] << std::endl; 
-    }
-    else if (heap.size() - 1 == 2) {
-        std::cout << "max = " << heap[1] << std::endl; 
-    }
-    else {
+    else if (heap.size() > 2) {
         if (heap[1] > heap[2]) {
             std::cout << "max = " << heap[1] << std::endl; 
         }
         else {
             std::cout << "max = " << heap[2] << std::endl;
         }
+    }
+    else if (heap.size() == 2) {
+        std::cout << "max = " << heap[1] << std::endl; 
+    }
+    else {
+        std::cout << "max = " << heap[0] << std::endl; 
     }
 }
 
@@ -70,7 +75,7 @@ void minMaxHeap::deleteMin() {
     heap[0] = heap[heap.size() - 1]; 
     heap.pop_back(); 
     if(!heap.empty()) {
-        percolateDown(0); 
+        percolateDownMin(0); 
     }
 }
 
@@ -169,13 +174,14 @@ void minMaxHeap::percolateUpMin(int i) {
 
     if (i == 0) 
         return;
-         
+
     int parentOfi = getParent(i);
-         
+       
     if (heap[i] < heap[parentOfi]) {
         while (i != 0) {
-            if (heap[i] < heap[getGrandParent(i)])
+            if (heap[i] < heap[getGrandParent(i)]) {
                 std::swap(heap[i], heap[getGrandParent(i)]);
+            }
             i = getGrandParent(i);
         }
     }
@@ -184,21 +190,13 @@ void minMaxHeap::percolateUpMin(int i) {
         std::swap(heap[i], heap[parentOfi]);
         i = getParent(i);
         while (i != 1 && i != 2) {
-            if (heap[i] >= heap[getGrandParent(i)])
+            if (heap[i] >= heap[getGrandParent(i)]) {
                 std::swap(heap[i], heap[getGrandParent(i)]);
+            }
             i = getGrandParent(i);
         }
     }
-
-
-    /*
-    if (i > 2) {
-        if (heap[i] < heap[getGrandParent(i)]) {
-            std::swap(heap[i], heap[getGrandParent(i)]); 
-            percolateUpMin(getGrandParent(i)); 
-        }
-    }
-    */ 
+    
 
 }
 

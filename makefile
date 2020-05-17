@@ -3,7 +3,7 @@
 #CXX = g++
 CXX = clang++ 
 
-CXXFLAGS = -std=c++11 -Wall
+CXXFLAGS = -std=c++11 -Wall -g
 
 all: prog2.out
 

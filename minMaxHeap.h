@@ -8,6 +8,10 @@
 class minMaxHeap {
 public: 
 
+    minMaxHeap(); 
+
+    ~minMaxHeap(); 
+
     // prints heap in order they appear in array 
     void printHeap() const;
 
